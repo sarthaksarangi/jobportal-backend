@@ -1,0 +1,67 @@
+package com.jobportal.backend.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.catalina.User;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
+
+@Entity
+@Table(name = "companies")
+@Getter
+@Setter
+public class Company {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "id", nullable = false)
+    private Long id;
+
+     @Column(name = "name", nullable = false, unique = true)
+    private String name;
+
+     @Column(name = "LOGO", length = 500)
+    private String logo;
+
+    @Column(name = "Industry", nullable = false, length = 100)
+    private String industry;
+
+     @Column(name = "SIZE", nullable = false, length = 50)
+    private String size;
+
+     @Column(name = "RATING", nullable = false, precision = 3, scale = 2)
+    private BigDecimal rating;
+
+     @Column(name = "Locations", length = 1000)
+     private String locations;
+
+     @Column(name = "FOUNDED" , nullable = false)
+     private Integer founded;
+
+     @Lob
+    @Column(name = "DESCRIPTION")
+     private String description;
+
+    @Column(name = "EMPLOYEES")
+     private Integer employees;
+
+    @Column(name = "WEBSITE", length = 500)
+     private String website;
+
+    @Column(name = "CREATED_AT", nullable = false)
+     private Instant createdAt;
+
+    @Column(name = "CREATED_BY", nullable = false, length=20)
+     private String createdBy;
+
+    @Column(name = "UPDATED_AT")
+     private Instant updatedAt;
+
+    @Column(name = "UPDATED_BY", length =20)
+     private String  updatedBy;
+
+}
