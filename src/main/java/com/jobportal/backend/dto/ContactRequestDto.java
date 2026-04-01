@@ -1,10 +1,29 @@
 package com.jobportal.backend.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.io.Serializable;
 
 /**
  * DTO for {@link com.jobportal.backend.entity.Contact}
  */
-public record ContactRequestDto(String name, String email, String userType, String subject,
-                                String message) implements Serializable {
+public record ContactRequestDto(
+        @NotBlank(message = "Name can not be empty")
+        @Size(min = 5, max = 50, message = "Name must be between 5 to 50 characters")
+        String name,
+        @NotBlank(message = "Email can not be empty")
+        @Email(message = "Invalid Email Address")
+        String email,
+        @NotBlank(message = "User Type can not be empty")
+        @Pattern(regexp = "Job Seeker|Employer|Other", message = "UserType must be one of: Job Seeker, Employer, Other")
+        String userType,
+        @NotBlank(message = "Subject can not be empty")
+        @Size(min = 5, max = 150, message = "Subject must be between 5 to 150 characters")
+        String subject,
+        @NotBlank(message = "Message can not be empty")
+        @Size(min = 5, max = 500, message = "Message must be between 5 to 500 characters")
+        String message) implements Serializable {
 }
