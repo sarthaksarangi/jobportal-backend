@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "companies")
 @Getter
 @Setter
-public class Company {
+public class Company extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,16 +52,5 @@ public class Company {
     @Column(name = "WEBSITE", length = 500)
      private String website;
 
-    @Column(name = "CREATED_AT", nullable = false)
-     private Instant createdAt;
-
-    @Column(name = "CREATED_BY", nullable = false, length=20)
-     private String createdBy;
-
-    @Column(name = "UPDATED_AT")
-     private Instant updatedAt;
-
-    @Column(name = "UPDATED_BY", length =20)
-     private String  updatedBy;
 
 }
