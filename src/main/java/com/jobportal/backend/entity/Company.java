@@ -8,7 +8,9 @@ import org.apache.catalina.User;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "companies")
@@ -52,5 +54,8 @@ public class Company extends BaseEntity{
     @Column(name = "WEBSITE", length = 500)
      private String website;
 
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Job> jobs = new ArrayList<>();
 
 }
