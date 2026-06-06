@@ -1,6 +1,7 @@
 package com.jobportal.backend.security.util;
 
 import com.jobportal.backend.constants.ApplicationConstants;
+import com.jobportal.backend.entity.JobPortalUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,11 @@ public class JWTUtil {
         String jwtToken;
         String secret = env.getProperty(ApplicationConstants.JWT_SECRET_KEY, ApplicationConstants.JWT_SECRET_DEFAULT_VALUE);
         SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        var fetchedUser = (User)authentication.getPrincipal();
+        var fetchedUser = (JobPortalUser)authentication.getPrincipal();
         jwtToken = Jwts.builder().issuer("Job Portal").subject("JWT Token")
-                .claim("username", fetchedUser.getUsername())
+                .claim("name", fetchedUser.getName())
+                .claim("email", fetchedUser.getEmail())
+                .claim("mobileNumber", fetchedUser.getMobileNumber())
                 .claim("roles", authentication.getAuthorities().stream()
                         .map( GrantedAuthority::getAuthority)
                         .collect(Collectors.joining(",")))

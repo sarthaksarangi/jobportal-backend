@@ -34,7 +34,7 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader(ApplicationConstants.JWT_HEADER);
-        if(null != authHeader){
+        if(null != authHeader && authHeader.startsWith("Bearer ")){
             try{
                 String jwt = authHeader.substring(7);
                 Environment env = getEnvironment();
@@ -62,7 +62,7 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
             }
             catch (Exception exception){
-                throw new BadCredentialsException("Invalid token received!");
+                throw new BadCredentialsException("Invalid token received!", exception);
             }
         }
         filterChain.doFilter(request, response);
